@@ -143,6 +143,7 @@ resource "azurerm_virtual_machine" "azure-vm" {
         computer_name  = var.identifier
         admin_username = var.linux_user
         admin_password = var.linux_pass
+        custom_data = templatefile("${path.module}/scripts/install.sh", {})
     }
 
     os_profile_linux_config {
