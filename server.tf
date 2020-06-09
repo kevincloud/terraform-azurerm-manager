@@ -1,6 +1,6 @@
 resource "azurerm_resource_group" "res-group" {
         name = "${var.identifier}-resources"
-        location = var.location
+        location = var.azure_location
 
         tags = {
             environment = "Dev"
@@ -10,8 +10,8 @@ resource "azurerm_resource_group" "res-group" {
 
 resource "azurerm_virtual_network" "vnet" {
     name                = "${var.identifier}-network"
-    address_space       = [var.cidr_block]
-    location            = var.location
+    address_space       = ["10.0.0.0/16"]
+    location            = var.azure_location
     resource_group_name = azurerm_resource_group.res-group.name
 
     tags = {
