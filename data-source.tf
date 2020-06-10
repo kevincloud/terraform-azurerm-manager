@@ -19,3 +19,10 @@ resource "azurerm_cosmosdb_account" "cosmosdb" {
         failover_priority = 0
     }
 }
+
+resource "azurerm_cosmosdb_table" "example" {
+    name                = "${var.identifier}-cosmos-table"
+    resource_group_name = azurerm_cosmosdb_account.cosmosdb.resource_group_name
+    account_name        = azurerm_cosmosdb_account.cosmosdb.name
+    throughput          = 400
+}
