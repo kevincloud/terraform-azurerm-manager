@@ -32,3 +32,11 @@ echo "export ARM_SUBSCRIPTION_ID=${ARM_SUBSCRIPTION_ID}" >> /etc/profile
 echo "export ARM_TENANT_ID=${ARM_TENANT_ID}" >> /etc/profile
 echo "export ARM_CLIENT_ID=${ARM_CLIENT_ID}" >> /etc/profile
 echo "export ARM_CLIENT_SECRET=${ARM_CLIENT_SECRET}" >> /etc/profile
+
+echo "ARM_SUBSCRIPTION_ID=${ARM_SUBSCRIPTION_ID}" >> /etc/environment
+echo "ARM_TENANT_ID=${ARM_TENANT_ID}" >> /etc/environment
+echo "ARM_CLIENT_ID=${ARM_CLIENT_ID}" >> /etc/environment
+echo "ARM_CLIENT_SECRET=${ARM_CLIENT_SECRET}" >> /etc/environment
+
+echo "az login --service-principal -u ${ARM_CLIENT_ID} -p ${ARM_CLIENT_SECRET} --tenant ${ARM_TENANT_ID}" > /usr/local/bin/azlogin.sh
+chmod +x /usr/local/bin/azlogin.sh
