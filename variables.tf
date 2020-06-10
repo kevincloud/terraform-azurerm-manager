@@ -3,3 +3,7 @@ variable "azure_location" { }
 variable "identifier" { }
 variable "linux_user" { }
 variable "linux_pass" { }
+variable "arm_sub_id" { }
+variable "arm_tenant_id" { }
+variable "arm_client_id" { }
+variable "arm_secret_id" { }
