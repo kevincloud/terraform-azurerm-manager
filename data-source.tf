@@ -3,7 +3,7 @@ resource "azurerm_cosmosdb_account" "cosmosdb" {
     location            = azurerm_resource_group.res-group.location
     resource_group_name = azurerm_resource_group.res-group.name
     offer_type          = "Standard"
-    kind                = "GlobalDocumentDB"
+    kind                = "MongoDB"
 
     enable_automatic_failover = true
 
@@ -20,7 +20,7 @@ resource "azurerm_cosmosdb_account" "cosmosdb" {
     }
 }
 
-resource "azurerm_cosmosdb_table" "example" {
+resource "azurerm_cosmosdb_table" "cosmosdb-table" {
     name                = "${var.identifier}-cosmos-table"
     resource_group_name = azurerm_cosmosdb_account.cosmosdb.resource_group_name
     account_name        = azurerm_cosmosdb_account.cosmosdb.name
