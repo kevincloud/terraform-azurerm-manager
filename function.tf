@@ -1,5 +1,5 @@
 resource "azurerm_storage_account" "function-sa" {
-    name                     = "${var.identifier}-function-sa"
+    name                     = "${var.identifier}functionsa"
     resource_group_name      = azurerm_resource_group.res-group.name
     location                 = azurerm_resource_group.res-group.location
     account_tier             = "Standard"
@@ -19,9 +19,10 @@ resource "azurerm_app_service_plan" "appserv-plan" {
 }
 
 resource "azurerm_function_app" "function-app" {
-    name                      = "${var.identifier}-sentinel-functions"
-    location                  = azurerm_resource_group.res-group.location
-    resource_group_name       = azurerm_resource_group.res-group.name
-    app_service_plan_id       = azurerm_app_service_plan.appserv-plan.id
-    storage_connection_string = azurerm_storage_account.function-sa.primary_connection_string
+    name                       = "${var.identifier}-sentinel-functions"
+    location                   = azurerm_resource_group.res-group.location
+    resource_group_name        = azurerm_resource_group.res-group.name
+    app_service_plan_id        = azurerm_app_service_plan.appserv-plan.id
+    storage_account_name       = azurerm_storage_account.function-sa.name
+    storage_account_access_key = azurerm_storage_account.function-sa.primary_access_key
 }
