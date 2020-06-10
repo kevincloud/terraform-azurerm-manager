@@ -7,3 +7,4 @@ variable "arm_sub_id" { }
 variable "arm_tenant_id" { }
 variable "arm_client_id" { }
 variable "arm_secret_id" { }
+variable "account_key" { }
