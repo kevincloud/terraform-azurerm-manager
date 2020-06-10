@@ -26,4 +26,8 @@ resource "azurerm_function_app" "function-app" {
     storage_account_name       = azurerm_storage_account.function-sa.name
     storage_account_access_key = azurerm_storage_account.function-sa.primary_access_key
     version                    = 3
+    app_settings = {
+        APP_ACCOUNT_KEY = var.account_key
+        APP_IDENTIFIER = var.identifier
+    }
 }
