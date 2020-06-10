@@ -3,9 +3,13 @@ resource "azurerm_cosmosdb_account" "cosmosdb" {
     location            = azurerm_resource_group.res-group.location
     resource_group_name = azurerm_resource_group.res-group.name
     offer_type          = "Standard"
-    kind                = "MongoDB"
+    kind                = "GlobalDocumentDB"
 
     enable_automatic_failover = true
+
+    capabilities {
+        name = "EnableTable"
+    }
 
     consistency_policy {
         consistency_level       = "BoundedStaleness"
