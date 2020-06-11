@@ -148,6 +148,8 @@ resource "azurerm_network_interface" "nic" {
 #             ARM_TENANT_ID = var.arm_tenant_id
 #             ARM_CLIENT_ID = var.arm_client_id
 #             ARM_CLIENT_SECRET = var.arm_secret_id
+#             IDENTIFIER = var.identifier
+#             ACCOUNT_KEY = var.account_key
 #         })
 #     }
 

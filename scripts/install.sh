@@ -21,8 +21,6 @@ echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO 
 apt-get update -y
 apt-get install -y azure-cli
 
-pip3 install azure.cosmosdb.table
-
 export ARM_SUBSCRIPTION_ID=${ARM_SUBSCRIPTION_ID}
 export ARM_TENANT_ID=${ARM_TENANT_ID}
 export ARM_CLIENT_ID=${ARM_CLIENT_ID}
@@ -40,3 +38,13 @@ echo "ARM_CLIENT_SECRET=${ARM_CLIENT_SECRET}" >> /etc/environment
 
 echo "az login --service-principal -u ${ARM_CLIENT_ID} -p ${ARM_CLIENT_SECRET} --tenant ${ARM_TENANT_ID}" > /usr/local/bin/azlogin.sh
 chmod +x /usr/local/bin/azlogin.sh
+
+cd /root
+git clone https://github.com/kevincloud/sentinel-data-api.git
+
+sudo bash -c "cat >>/root/sentinel-data-api/app.ini" <<EOT
+[App]
+Identifier="${IDENTIFIER}"
+AccountKey="${ACCOUNT_KEY}"
+EOT
+
