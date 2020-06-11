@@ -180,7 +180,7 @@ resource "azurerm_role_assignment" "example" {
     name               = azurerm_virtual_machine.azure-vm.name
     scope              = data.azurerm_subscription.current.id
     role_definition_id = "${data.azurerm_subscription.current.id}${data.azurerm_role_definition.contributor.id}"
-    principal_id       = azurerm_virtual_machine.azure-vm.identity[0]["principal_id"]
+    principal_id       = azurerm_virtual_machine.azure-vm.identity.0.principal_id
 }
 
 data "azurerm_public_ip" "public-ip" {
