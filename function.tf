@@ -28,6 +28,13 @@ resource "azurerm_function_app" "function-app" {
     storage_account_access_key = azurerm_storage_account.function-sa.primary_access_key
     os_type                    = "linux"
     version                    = "~3"
+
+    site_config {
+        cors {
+            allowed_origins = ["*"]
+        }
+    }
+
     app_settings = {
         APP_ACCOUNT_KEY = var.account_key
         APP_IDENTIFIER = var.identifier
