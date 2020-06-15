@@ -55,8 +55,8 @@ resource "azurerm_network_security_group" "network-sg" {
         destination_address_prefix = "*"
     }
     security_rule {
-        name                       = "HTTP"
-        priority                   = 100
+        name                       = "HTTPX"
+        priority                   = 101
         direction                  = "Inbound"
         access                     = "Allow"
         protocol                   = "Tcp"
@@ -160,7 +160,7 @@ resource "azurerm_virtual_machine" "azure-vm" {
             ARM_CLIENT_ID = var.arm_client_id
             ARM_CLIENT_SECRET = var.arm_secret_id
             IDENTIFIER = var.identifier
-            ACCOUNT_KEY = var.account_key
+            ACCOUNT_KEY = azurerm_cosmosdb_account.cosmosdb.primary_master_key
         })
     }
 
