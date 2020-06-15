@@ -100,8 +100,8 @@ Restart=on-failure # or always, on-abort, etc
 WantedBy=multi-user.target
 EOT
 
-sudo systemctl start sentineldata
 sudo systemctl enable sentineldata
+sudo systemctl start sentineldata
 
 # Add Front-end service
 echo "Installing systemd service for Web..."
@@ -119,5 +119,5 @@ Restart=on-failure # or always, on-abort, etc
 WantedBy=multi-user.target
 EOT
 
-sudo systemctl start sentinelweb
 sudo systemctl enable sentinelweb
+sudo systemctl start sentinelweb
