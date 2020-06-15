@@ -36,7 +36,7 @@ resource "azurerm_function_app" "function-app" {
     }
 
     app_settings = {
-        APP_ACCOUNT_KEY = var.account_key
+        APP_ACCOUNT_KEY = azurerm_cosmosdb_account.cosmosdb.primary_master_key
         APP_IDENTIFIER = var.identifier
     }
 }
