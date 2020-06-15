@@ -39,6 +39,8 @@ chmod +x /usr/local/bin/azlogin.sh
 cd /root
 git clone https://github.com/kevincloud/sentinel-data-api.git
 
+pip3 install -r /root/sentinel-data-api/requirements.txt
+
 mkdir -p /opt/data-api
 cp /root/sentinel-data-api/api.py /opt/data-api/
 mkdir -p /opt/web-app
