@@ -7,11 +7,8 @@ apt-get install -y \
     apt-transport-https \
     lsb-release \
     gnupg \
-    nginx \
     python3 \
     python3-pip
-
-service nginx start
 
 curl -sL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | tee /etc/apt/trusted.gpg.d/microsoft.asc.gpg > /dev/null
 
@@ -42,9 +39,20 @@ chmod +x /usr/local/bin/azlogin.sh
 cd /root
 git clone https://github.com/kevincloud/sentinel-data-api.git
 
-sudo bash -c "cat >>/root/sentinel-data-api/app.ini" <<EOT
+mkdir -p /opt/data-api
+cp /root/sentinel-data-api/api.py /opt/data-api/
+mkdir -p /opt/web-app
+cp /root/sentinel-data-api/app.py /opt/web-app/
+cp -R /root/sentinel-data-api/templates /opt/web-app/
+
+sudo bash -c "cat >>/opt/data-api/app.ini" <<EOT
 [App]
-Identifier="${IDENTIFIER}"
-AccountKey="${ACCOUNT_KEY}"
+Identifier=${IDENTIFIER}
+AccountKey=${ACCOUNT_KEY}
 EOT
 
+sudo bash -c "cat >>/opt/web-app/app.ini" <<EOT
+[App]
+Identifier=${IDENTIFIER}
+AccountKey=${ACCOUNT_KEY}
+EOT
