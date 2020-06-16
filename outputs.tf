@@ -3,9 +3,9 @@ output "ssh" {
 }
 
 output "api" {
-    value = "http://${aws_route53_record.sentinel-data.fqdn}:8080/"
+    value = "http://${azurerm_dns_a_record.sentinel-data.fqdn}:8080/"
 }
 
 output "web" {
-    value = "http://${aws_route53_record.sentinel-data.fqdn}/"
+    value = "http://${azurerm_dns_a_record.sentinel-data.fqdn}/"
 }
