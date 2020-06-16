@@ -155,8 +155,6 @@ resource "azurerm_virtual_machine" "azure-vm" {
         admin_username = var.linux_user
         admin_password = var.linux_pass
         custom_data = templatefile("${path.module}/scripts/install.sh", {
-            AWS_ACCESS_KEY = var.aws_access_key
-            AWS_SECRET_KEY = var.aws_secret_key
             ARM_SUBSCRIPTION_ID = var.arm_sub_id
             ARM_TENANT_ID = var.arm_tenant_id
             ARM_CLIENT_ID = var.arm_client_id

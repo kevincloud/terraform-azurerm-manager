@@ -36,22 +36,6 @@ echo "ARM_CLIENT_SECRET=${ARM_CLIENT_SECRET}" >> /etc/environment
 echo "az login --service-principal -u ${ARM_CLIENT_ID} -p ${ARM_CLIENT_SECRET} --tenant ${ARM_TENANT_ID}" > /usr/local/bin/azlogin.sh
 chmod +x /usr/local/bin/azlogin.sh
 
-# setup AWS
-mkdir -p /root/.aws
-
-sudo bash -c "cat >/root/.aws/config" <<EOT
-[default]
-aws_access_key_id=${AWS_ACCESS_KEY}
-aws_secret_access_key=${AWS_SECRET_KEY}
-EOT
-sudo bash -c "cat >/root/.aws/credentials" <<EOT
-[default]
-aws_access_key_id=${AWS_ACCESS_KEY}
-aws_secret_access_key=${AWS_SECRET_KEY}
-EOT
-
-pip3 install awscli
-
 cd /root
 git clone https://github.com/kevincloud/sentinel-data-api.git
 
