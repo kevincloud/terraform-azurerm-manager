@@ -62,6 +62,7 @@ cp /root/sentinel-data-api/api.py /opt/data-api/
 mkdir -p /opt/web-app
 cp /root/sentinel-data-api/app.py /opt/web-app/
 cp -R /root/sentinel-data-api/templates /opt/web-app/
+cp -R /root/sentinel-data-api/static /opt/web-app/
 
 sudo bash -c "cat >>/root/sentinel-data-api/app.ini" <<EOT
 [App]
@@ -75,7 +76,7 @@ Identifier=${IDENTIFIER}
 AccountKey=${ACCOUNT_KEY}
 EOT
 
-sudo bash -c "cat >>/opt/web-app/app.ini" <<EOT
+sudo bash -c "cat >>/opt/data-api/app.ini" <<EOT
 [App]
 Identifier=${IDENTIFIER}
 AccountKey=${ACCOUNT_KEY}
@@ -94,7 +95,7 @@ After=network.target
 Type=simple
 User=root
 WorkingDirectory=/opt/data-api
-ExecStart=python3 api.py
+ExecStart=/usr/bin/python3 /opt/data-api/api.py
 Restart=on-failure # or always, on-abort, etc
 [Install]
 WantedBy=multi-user.target
@@ -113,7 +114,7 @@ After=network.target
 Type=simple
 User=root
 WorkingDirectory=/opt/web-app
-ExecStart=python3 app.py
+ExecStart=/usr/bin/python3 /opt/web-app/app.py
 Restart=on-failure # or always, on-abort, etc
 [Install]
 WantedBy=multi-user.target

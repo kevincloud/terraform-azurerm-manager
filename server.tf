@@ -129,76 +129,76 @@ resource "azurerm_network_interface" "nic" {
     }
 }
 
-resource "azurerm_virtual_machine" "azure-vm" {
-    name                  = "${var.identifier}-vm"
-    location              = var.azure_location
-    resource_group_name   = azurerm_resource_group.res-group.name
-    network_interface_ids = [azurerm_network_interface.nic.id]
-    vm_size               = "Standard_A1_v2"
+# resource "azurerm_virtual_machine" "azure-vm" {
+#     name                  = "${var.identifier}-vm"
+#     location              = var.azure_location
+#     resource_group_name   = azurerm_resource_group.res-group.name
+#     network_interface_ids = [azurerm_network_interface.nic.id]
+#     vm_size               = "Standard_A1_v2"
 
-    storage_image_reference {
-        publisher = "Canonical"
-        offer     = "UbuntuServer"
-        sku       = "18.04-LTS"
-        version   = "latest"
-    }
+#     storage_image_reference {
+#         publisher = "Canonical"
+#         offer     = "UbuntuServer"
+#         sku       = "18.04-LTS"
+#         version   = "latest"
+#     }
 
-    storage_os_disk {
-        name              = "kcOsDisk"
-        caching           = "ReadWrite"
-        create_option     = "FromImage"
-        managed_disk_type = "Standard_LRS"
-    }
+#     storage_os_disk {
+#         name              = "kcOsDisk"
+#         caching           = "ReadWrite"
+#         create_option     = "FromImage"
+#         managed_disk_type = "Standard_LRS"
+#     }
 
-    os_profile {
-        computer_name  = var.identifier
-        admin_username = var.linux_user
-        admin_password = var.linux_pass
-        custom_data = templatefile("${path.module}/scripts/install.sh", {
-            AWS_ACCESS_KEY = var.aws_access_key
-            AWS_SECRET_KEY = var.aws_secret_key
-            ARM_SUBSCRIPTION_ID = var.arm_sub_id
-            ARM_TENANT_ID = var.arm_tenant_id
-            ARM_CLIENT_ID = var.arm_client_id
-            ARM_CLIENT_SECRET = var.arm_secret_id
-            IDENTIFIER = var.identifier
-            ACCOUNT_KEY = azurerm_cosmosdb_account.cosmosdb.primary_master_key
-        })
-    }
+#     os_profile {
+#         computer_name  = var.identifier
+#         admin_username = var.linux_user
+#         admin_password = var.linux_pass
+#         custom_data = templatefile("${path.module}/scripts/install.sh", {
+#             AWS_ACCESS_KEY = var.aws_access_key
+#             AWS_SECRET_KEY = var.aws_secret_key
+#             ARM_SUBSCRIPTION_ID = var.arm_sub_id
+#             ARM_TENANT_ID = var.arm_tenant_id
+#             ARM_CLIENT_ID = var.arm_client_id
+#             ARM_CLIENT_SECRET = var.arm_secret_id
+#             IDENTIFIER = var.identifier
+#             ACCOUNT_KEY = azurerm_cosmosdb_account.cosmosdb.primary_master_key
+#         })
+#     }
 
-    os_profile_linux_config {
-        disable_password_authentication = false
-    }
+#     os_profile_linux_config {
+#         disable_password_authentication = false
+#     }
 
-    boot_diagnostics {
-        enabled     = "true"
-        storage_uri = azurerm_storage_account.blob-store.primary_blob_endpoint
-    }
+#     boot_diagnostics {
+#         enabled     = "true"
+#         storage_uri = azurerm_storage_account.blob-store.primary_blob_endpoint
+#     }
 
-    identity {
-        type = "SystemAssigned"
-    }
+#     identity {
+#         type = "SystemAssigned"
+#     }
 
-    tags = {
-        environment = "Dev"
-        Key = "DoNotDelete"
-    }
-}
+#     tags = {
+#         environment = "Dev"
+#         Key = "DoNotDelete"
+#     }
+# }
 
-data "azurerm_subscription" "current" {}
+# data "azurerm_subscription" "current" {}
 
-data "azurerm_role_definition" "contributor" {
-    name = "Contributor"
-}
+# data "azurerm_role_definition" "contributor" {
+#     name = "Contributor"
+# }
 
-resource "azurerm_role_assignment" "assignrole" {
-    scope              = data.azurerm_subscription.current.id
-    role_definition_id = "${data.azurerm_subscription.current.id}${data.azurerm_role_definition.contributor.id}"
-    principal_id       = azurerm_virtual_machine.azure-vm.identity.0.principal_id
-}
+# resource "azurerm_role_assignment" "assignrole" {
+#     scope              = data.azurerm_subscription.current.id
+#     role_definition_id = "${data.azurerm_subscription.current.id}${data.azurerm_role_definition.contributor.id}"
+#     principal_id       = azurerm_virtual_machine.azure-vm.identity.0.principal_id
+# }
 
-data "azurerm_public_ip" "public-ip" {
-    name                = azurerm_public_ip.public-ip.name
-    resource_group_name = azurerm_resource_group.res-group.name
-    depends_on = [azurerm_public_ip.public-ip]
-}
+# data "azurerm_public_ip" "public-ip" {
+#     name                = azurerm_public_ip.public-ip.name
+#     resource_group_name = azurerm_resource_group.res-group.name
+#     depends_on = [azurerm_public_ip.public-ip]
+# }
