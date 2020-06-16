@@ -1,11 +1,11 @@
-output "ssh" {
+output "A-ssh" {
     value = "ssh ubuntu@${data.azurerm_public_ip.public-ip.ip_address}"
 }
 
-output "api" {
-    value = "http://${azurerm_dns_a_record.sentinel-data.fqdn}:8080/"
+output "B-api" {
+    value = "http://sentinel-data.${var.dns_zone}:8080/"
 }
 
-output "web" {
-    value = "http://${azurerm_dns_a_record.sentinel-data.fqdn}/"
+output "C-web" {
+    value = "http://sentinel-data.${var.dns_zone}/"
 }
