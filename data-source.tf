@@ -36,11 +36,4 @@ resource "azurerm_cosmosdb_table" "cosmosdb-table" {
     resource_group_name = azurerm_cosmosdb_account.cosmosdb.resource_group_name
     account_name        = azurerm_cosmosdb_account.cosmosdb.name
     throughput          = 400
-
-    tags = {
-        Department = "Solutions Engineering"
-        Environment = "Development"
-        DoNotDelete = "True"
-        owner = var.owner
-    }
 }

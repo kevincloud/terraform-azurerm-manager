@@ -29,13 +29,6 @@ resource "azurerm_subnet" "public-subnet" {
     resource_group_name  = azurerm_resource_group.res-group.name
     virtual_network_name = azurerm_virtual_network.vnet.name
     address_prefixes      = ["10.0.2.0/24"]
-
-    tags = {
-        Department = "Solutions Engineering"
-        Environment = "Development"
-        DoNotDelete = "True"
-        owner = var.owner
-    }
 }
 
 resource "azurerm_network_security_group" "network-sg" {
