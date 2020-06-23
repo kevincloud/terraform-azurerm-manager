@@ -1,11 +1,13 @@
 resource "azurerm_resource_group" "res-group" {
-        name = "${var.identifier}-resources"
-        location = var.azure_location
+    name = "${var.identifier}-resources"
+    location = var.azure_location
 
-        tags = {
-            environment = "Dev"
-            Key = "DoNotDelete"
-        }
+    tags = {
+        Department = "Solutions Engineering"
+        Environment = "Development"
+        DoNotDelete = "True"
+        owner = var.owner
+    }
 }
 
 resource "azurerm_virtual_network" "vnet" {
@@ -15,8 +17,10 @@ resource "azurerm_virtual_network" "vnet" {
     resource_group_name = azurerm_resource_group.res-group.name
 
     tags = {
-        environment = "Dev"
-        Key = "DoNotDelete"
+        Department = "Solutions Engineering"
+        Environment = "Development"
+        DoNotDelete = "True"
+        owner = var.owner
     }
 }
 
@@ -25,6 +29,13 @@ resource "azurerm_subnet" "public-subnet" {
     resource_group_name  = azurerm_resource_group.res-group.name
     virtual_network_name = azurerm_virtual_network.vnet.name
     address_prefixes      = ["10.0.2.0/24"]
+
+    tags = {
+        Department = "Solutions Engineering"
+        Environment = "Development"
+        DoNotDelete = "True"
+        owner = var.owner
+    }
 }
 
 resource "azurerm_network_security_group" "network-sg" {
@@ -67,14 +78,23 @@ resource "azurerm_network_security_group" "network-sg" {
     }
 
     tags = {
-        environment = "Terraform Demo"
-        Key = "DoNotDelete"
+        Department = "Solutions Engineering"
+        Environment = "Development"
+        DoNotDelete = "True"
+        owner = var.owner
     }
 }
 
 resource "azurerm_subnet_network_security_group_association" "nsg-assoc" {
     subnet_id                 = azurerm_subnet.public-subnet.id
     network_security_group_id = azurerm_network_security_group.network-sg.id
+
+    tags = {
+        Department = "Solutions Engineering"
+        Environment = "Development"
+        DoNotDelete = "True"
+        owner = var.owner
+    }
 }
 
 resource "random_id" "randomId" {
@@ -94,8 +114,10 @@ resource "azurerm_storage_account" "blob-store" {
     account_tier                = "Standard"
 
     tags = {
-        environment = "Dev"
-        Key = "DoNotDelete"
+        Department = "Solutions Engineering"
+        Environment = "Development"
+        DoNotDelete = "True"
+        owner = var.owner
     }
 }
 
@@ -106,8 +128,10 @@ resource "azurerm_public_ip" "public-ip" {
     allocation_method            = "Dynamic"
 
     tags = {
-        environment = "Dev"
-        Key = "DoNotDelete"
+        Department = "Solutions Engineering"
+        Environment = "Development"
+        DoNotDelete = "True"
+        owner = var.owner
     }
 }
 
@@ -124,8 +148,10 @@ resource "azurerm_network_interface" "nic" {
     }
 
     tags = {
-        environment = "Dev"
-        Key = "DoNotDelete"
+        Department = "Solutions Engineering"
+        Environment = "Development"
+        DoNotDelete = "True"
+        owner = var.owner
     }
 }
 
@@ -178,8 +204,10 @@ resource "azurerm_virtual_machine" "azure-vm" {
     }
 
     tags = {
-        environment = "Dev"
-        Key = "DoNotDelete"
+        Department = "Solutions Engineering"
+        Environment = "Development"
+        DoNotDelete = "True"
+        owner = var.owner
     }
 }
 
@@ -193,10 +221,24 @@ resource "azurerm_role_assignment" "assignrole" {
     scope              = data.azurerm_subscription.current.id
     role_definition_id = "${data.azurerm_subscription.current.id}${data.azurerm_role_definition.contributor.id}"
     principal_id       = azurerm_virtual_machine.azure-vm.identity.0.principal_id
+
+    tags = {
+        Department = "Solutions Engineering"
+        Environment = "Development"
+        DoNotDelete = "True"
+        owner = var.owner
+    }
 }
 
 data "azurerm_public_ip" "public-ip" {
     name                = azurerm_public_ip.public-ip.name
     resource_group_name = azurerm_resource_group.res-group.name
     depends_on = [azurerm_public_ip.public-ip]
+
+    tags = {
+        Department = "Solutions Engineering"
+        Environment = "Development"
+        DoNotDelete = "True"
+        owner = var.owner
+    }
 }
