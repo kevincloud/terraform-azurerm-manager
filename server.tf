@@ -81,13 +81,6 @@ resource "azurerm_network_security_group" "network-sg" {
 resource "azurerm_subnet_network_security_group_association" "nsg-assoc" {
     subnet_id                 = azurerm_subnet.public-subnet.id
     network_security_group_id = azurerm_network_security_group.network-sg.id
-
-    tags = {
-        Department = "Solutions Engineering"
-        Environment = "Development"
-        DoNotDelete = "True"
-        owner = var.owner
-    }
 }
 
 resource "random_id" "randomId" {
@@ -214,24 +207,10 @@ resource "azurerm_role_assignment" "assignrole" {
     scope              = data.azurerm_subscription.current.id
     role_definition_id = "${data.azurerm_subscription.current.id}${data.azurerm_role_definition.contributor.id}"
     principal_id       = azurerm_virtual_machine.azure-vm.identity.0.principal_id
-
-    tags = {
-        Department = "Solutions Engineering"
-        Environment = "Development"
-        DoNotDelete = "True"
-        owner = var.owner
-    }
 }
 
 data "azurerm_public_ip" "public-ip" {
     name                = azurerm_public_ip.public-ip.name
     resource_group_name = azurerm_resource_group.res-group.name
     depends_on = [azurerm_public_ip.public-ip]
-
-    tags = {
-        Department = "Solutions Engineering"
-        Environment = "Development"
-        DoNotDelete = "True"
-        owner = var.owner
-    }
 }
