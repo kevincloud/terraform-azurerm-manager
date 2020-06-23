@@ -8,3 +8,4 @@ variable "arm_client_id" { }
 variable "arm_secret_id" { }
 variable "dns_zone" { }
 variable "owner" { }
+variable "static_resource_group" { }

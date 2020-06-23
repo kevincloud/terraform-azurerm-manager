@@ -1,5 +1,5 @@
 data "azurerm_resource_group" "static-rg" {
-    name = "kevinc-static-resources"
+    name = var.static_resource_group
 }
 
 resource "azurerm_dns_a_record" "sentinel-data" {
