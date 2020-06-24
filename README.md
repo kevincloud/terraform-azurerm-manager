@@ -1,7 +1,5 @@
 # Sentinel Data Manager - Azure
 
-  
-
 Hashicorp Sentinel provides the ability to make your policy-as-code more dynamic using the HTTP request module. This demo allows you to show how easy it is to pull dynamic data into Sentinel for process at "run-time." As soon as a run is started, the policies are read in, then executed during the policy stage.
 
 *NOTE: It's important to understand that the nature of this demo is to simplify a complex workflow, which inherently means setting it up will be a little more involved first time around. But once you've finished setting it up the first time, it'll be quite simple to rinse and repeat the actual demo portion.*
@@ -90,8 +88,22 @@ git push origin master --tags
  - Click **+ Add Module**
  - Click the GitHub VCS provider and add each of the modules listed above. There are 7 AWS modules and 4 AzureRM modules total.
 
-Whew! Well, that was probably the most tedious part of this setup. The next few steps will not be as time-consuming.
-
 ### Step 2: Setup Workspaces
 
-Now we need to setup our workspaces.
+Now we need to setup our workspaces. This will involved cloning a couple of additional repos, connecting them to workspaces, then setting up the variables.
+
+#### AWS Workspace
+
+We'll clone the AWS workspace and setup the appropriate variables. Clone the following repo:
+
+[https://github.com/kevincloud/terraform-aws-modules](https://github.com/kevincloud/terraform-aws-modules)
+
+In TFC, add a new workspace:
+
+From the Organization menu at the top, navigate to **Workspaces**
+ - Click **+ New Workspace**
+ - Click your GitHub VCS
+ - Select `terraform-aws-modules`
+ - Click **Create Workspace**
+
+Add variables.....
