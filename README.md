@@ -382,7 +382,7 @@ Upon completion, you find the outputs contain your SSH address as well as the UR
 ##### Lists
 
  - Below the list name, you can enter a new value in the input box and click **+**
- - You can remove a list item by click the *x* on the right side of the item.
+ - You can remove a list item by click the **x** on the right side of the item.
 
 The following lists have different values depending on the provider you selected under **Options**
 
