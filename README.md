@@ -155,42 +155,42 @@ Let's add our variables to our workspace.
 
 We need to make sure the modules in the Terraform script are pointing to *your* Private Module Registry instead of mine. Clone your newly forked `terraform-aws-modules` repo, edit the `main.tf` file, and replace every instance of `kevindemos` with your TFC organization name. For instance:
 
-```
+```tf
 module  "custom-vpc" {
     source = "app.terraform.io/<YOUR_TFC_ORG_NAME>/custom-vpc/aws"
     ...
 }
 ```
 
-```
+```tf
 module "custom-sg" {
     source  = "app.terraform.io/<YOUR_TFC_ORG_NAME>/custom-sg/aws"
     ...
 }
 ```
 
-```
+```tf
 module "dynamodb" {
     source  = "app.terraform.io/<YOUR_TFC_ORG_NAME>/dynamodb/aws"
     ...
 }
 ```
 
-```
+```tf
 module "iam-role" {
     source  = "app.terraform.io/<YOUR_TFC_ORG_NAME>/iam-role/aws"
     ...
 }
 ```
 
-```
+```tf
 module "my-nginx" {
     source  = "app.terraform.io/<YOUR_TFC_ORG_NAME>/my-nginx/aws"
     ...
 }
 ```
 
-```
+```tf
 module "my-bucket" {
     source  = "app.terraform.io/<YOUR_TFC_ORG_NAME>/my-bucket/aws"
     ...
@@ -235,28 +235,28 @@ Let's add our variables to our workspace.
 
 As with the AWS module sources, the Azure modules sources also need to point to *your* Private Module Registry instead of mine. Clone your newly forked `terraform-azurerm-modules` repo, edit the `main.tf` file, and replace every instance of `kevindemos` with your TFC organization name. For instance:
 
-```
+```tf
 module "vnet" {
     source  = "app.terraform.io/<YOUR_TFC_ORG_NAME>/custom-vnet/azurerm"
     ...
 }
 ```
 
-```
+```tf
 module "custom_sg" {
     source  = "app.terraform.io/<YOUR_TFC_ORG_NAME>/custom-sg/azurerm"
     ...
 }
 ```
 
-```
+```tf
 module "blob" {
     source  = "app.terraform.io/<YOUR_TFC_ORG_NAME>/custom-blob/azurerm"
     ...
 }
 ```
 
-```
+```tf
 module "custom_vm" {
     source  = "app.terraform.io/<YOUR_TFC_ORG_NAME>/custom-vm/azurerm"
     ...
