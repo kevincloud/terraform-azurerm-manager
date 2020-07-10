@@ -362,7 +362,7 @@ We can create the Service Principal which will have permissions to manage resour
 `az ad sp create-for-rbac --role="Owner" --scopes="/subscriptions/ARM_SUBSCRIPTION_ID`
 
 More info on generating Azure credentials: 
-[https://www.terraform.io/docs/providers/azurerm/guides/service_principal_client_secret.html]
+https://www.terraform.io/docs/providers/azurerm/guides/service_principal_client_secret.html
 
 
 Once the VM is created, a bootstrap script will run which installs the API and Front-end app from:
