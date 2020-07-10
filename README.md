@@ -61,7 +61,7 @@ There are a few pre-requisites, some of which I found to be necessary evils. As 
  1. **Terraform Cloud**: If you don't already have one, create a [Terraform Cloud](https://app.terraform.io) account.
  2. **Cost Estimation**: You'll need to make sure Cost Estimation is enabled in Terraform Cloud (Settings &rarr; Cost Estimation)
  3. **Git**: Git basics are required. So you need to know how to clone, fork, pull, push, commit, etc. This guide assumes you are able to perform these basic git tasks.
- 4. **DNS**: Please setup your `hashicorp.io` zone, which provides coverage for AWS, Azure, and GCP. Instructions are found at [dns-multicloud](https://github.com/lhaig/dns-multicloud). Later in this guide, you'll need to use your subdomain you created here for Azure (e.q. yourname.azure.hashidemos.io) *NOTE: In Azure, make sure you add the tag `DoNotDelete` to your newly created resource group AND DNS Zone. Otherwise, they will be deleted in the next purge interval.*
+ 4. **DNS**: Please setup your `hashicorp.io` zone, which provides coverage for AWS, Azure, and GCP. Instructions are found at [dns-multicloud](https://github.com/lhaig/dns-multicloud). Later in this guide, you'll need to use your subdomain you created here for Azure (e.q. yourname.azure.hashidemos.io) *NOTE: In Azure, make sure you add the tag `DoNotDelete` with the value of of `true` to your newly created resource group AND DNS Zone. Otherwise, they will be deleted in the next purge interval by the reaper.*
  5. **AWS credentials**
     - Access Key ID
     - Secret Key
@@ -227,7 +227,7 @@ Let's add our variables to our workspace.
  - Under the **Environment Variables** section, click **+Add variable**
  - Add each of the following environment variables:
    - `ARM_SUBSCRIPTION_ID`: Your Azure subscription ID
-   - `ARM_TENANT_ID`: Your Directory ID
+   - `ARM_TENANT_ID`: Your Tenant (Directory) ID
    - `ARM_CLIENT_ID`: The Client ID
    - `ARM_CLIENT_SECRET`: Client Secret
 
@@ -348,7 +348,19 @@ Let's add our variables to our workspace.
    - `linux_pass`: Password for your Linux VM for SSH
    - `dns_zone`: Your `dns-multicloud` FQDN  (i.e. yourname.azure.hashidemos.io; see [Before You Start](#prereqs))
    - `owner`: Your email address
-   - `static_resource_group`: Obtained from `dns-multicloud` (see [Before You Start](#prereqs))
+   - `static_resource_group`: Obtained from the Terraform run output of `dns-multicloud` (see [Before You Start](#prereqs))
+- Add each of the following Azure environment variables:
+   - `ARM_SUBSCRIPTION_ID`: Your Azure subscription ID
+   - `ARM_TENANT_ID`: Your Tenant (Directory) ID
+   - `ARM_CLIENT_ID`: The Client ID
+   - `ARM_CLIENT_SECRET`: Client Secret
+
+Be sure the `ARM_CLIENT_ID` has the `Owner` role instead of the `Contributor` role
+
+We can create the Service Principal which will have permissions to manage resources in the specified Subscription using the following command:
+`az ad sp create-for-rbac --role="Owner" --scopes="/subscriptions/ARM_SUBSCRIPTION_ID`
+
+[https://www.terraform.io/docs/providers/azurerm/guides/service_principal_client_secret.html] (More info on generating Azure credentials:)
 
 Once the VM is created, a bootstrap script will run which installs the API and Front-end app from:
 
