@@ -358,9 +358,10 @@ Let's add our variables to our workspace.
 Be sure the `ARM_CLIENT_ID` has the `Owner` role instead of the `Contributor` role
 
 We can create the Service Principal which will have permissions to manage resources in the specified Subscription using the following command:
+
 `az ad sp create-for-rbac --role="Owner" --scopes="/subscriptions/ARM_SUBSCRIPTION_ID`
 
-[https://www.terraform.io/docs/providers/azurerm/guides/service_principal_client_secret.html] (More info on generating Azure credentials:)
+[https://www.terraform.io/docs/providers/azurerm/guides/service_principal_client_secret.html](More info on generating Azure credentials)
 
 Once the VM is created, a bootstrap script will run which installs the API and Front-end app from:
 
